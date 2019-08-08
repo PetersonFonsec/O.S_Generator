@@ -1,0 +1,219 @@
+<template>
+	<table>
+		<thead>
+			<th colspan="2">
+				<img src="" alt="logo">
+			</th>
+			<th  colspan="2">
+				<span class="red bold font25"> Fast Cell Assistência </span>
+				
+				<p class="bold font20">
+					Rua Doutor João Carlos de azevedo<br> 
+
+					Jardim maringá mauá-sp<br>
+
+					lojas 15 e 16 @fastcell <br>
+				</p>
+			</th>
+		</thead>
+
+		<tbody>
+			<tr class="bg-cinza">
+				<td colspan="4" class="bold font20 bg-cinza center">Ordem do Serviço nº {{ numero }}</td>
+			</tr>
+			<tr>
+				<td colspan="1" class="bold">Nome:</td>
+				<td colspan="3">{{ nome }}</td>
+			</tr>
+			<tr>
+				<td colspan="1" class="bold" >Endereço:</td>
+				<td colspan="3">{{ endereco }}</td>
+			</tr>
+			<tr>
+				<td colspan="1" class="bold">Telefone(fixo):</td>
+				<td colspan="1">{{ telefone }}</td>
+				<td colspan="1" class="bold">Celular:</td>
+				<td colspan="1">{{ celular }}</td>
+			</tr>
+			<tr>
+				<td colspan="1" class="bold">Falar Com:</td>
+				<td colspan="3">{{ falarCom }}</td>
+			</tr>
+			<tr>
+				<td colspan="1" class="bold">Endereço:</td>
+				<td colspan="3">{{ endereco }}</td>
+			</tr>
+			<tr>
+				<td colspan="1" class="bold">RG:</td>
+				<td colspan="3">{{ rg }}</td>
+			</tr>
+			<tr class="bg-cinza">
+				<td colspan="4" class="bold font20 bg-cinza center">Dados do aparelho</td>
+			</tr>
+			<tr>
+				<td colspan="1" class="bold">Modelo:</td>
+				<td colspan="3">{{ modelo }}</td>
+			</tr>
+			<tr>
+				<td colspan="1" class="bold">Marca:</td>
+				<td colspan="3">{{ marca }}</td>
+			</tr>
+			<tr>
+				<td colspan="1" class="bold">Cor:</td>
+				<td colspan="3">{{ cor }}</td>
+			</tr>
+			<tr>
+				<td colspan="1" class="bold">IMEI:</td>
+				<td colspan="3">{{ imei }}</td>
+			</tr>
+			<tr class="bg-cinza">
+				<td colspan="4" class="bold font20 bg-cinza center">Acessórios</td>
+			</tr>
+			<tr>
+				<td colspan="1" class="bold">Chip:</td>
+				<td colspan="3">{{ chip }}</td>
+			</tr>
+			<tr>
+				<td colspan="1" class="bold">Cartao SD:</td>
+				<td colspan="3">{{ cartaoSd }}</td>
+			</tr>
+			<tr>
+				<td colspan="1" class="bold">Capa:</td>
+				<td colspan="3">{{ capa }}</td>
+			</tr>
+			<tr class="bg-cinza">
+				<td colspan="4" class="bold font20 bg-cinza center" >Defeito/Problema relatado pelo Cliente</td>
+			</tr>
+			<tr>
+				<td colspan="4">{{ defeito }}</td>
+			</tr>
+			<tr>
+				<td colspan="4">  linha em branca </td>
+			</tr>
+			<tr class="bg-cinza">
+				<td colspan="4" class="bold font20 bg-cinza center" >Solução previamente constatada</td>
+			</tr>
+			<tr>
+				<td colspan="4">{{ solucao }}</td>
+			</tr>
+			<tr class="bg-cinza">
+				<td colspan="4" class="bold font20 bg-cinza">Valor Total: {{ valorTotal }}</td>
+			</tr>
+			<tr>
+				<td colspan="1" class="bold">Toch {{ toch }}</td>
+				<td colspan="1" class="bold">Falante auricular {{ falanteAuricular }}</td>
+				<td colspan="1" class="bold">Entrada de chip {{ entradaCuricular }}</td>
+				<td colspan="1" class="bold">sis alguma coisa {{ alguma }}</td>
+			</tr>
+			<tr>
+				<td colspan="1" class="bold">Display {{ display }}</td>
+				<td colspan="1" class="bold">Falante de som {{ falanteSom }}</td>
+				<td colspan="1" class="bold">Camera {{ camera }}</td>
+				<td colspan="1" class="bold">sis alguma coisa {{ alguma }}</td>
+			</tr>
+			<tr>
+				<td colspan="1" class="bold">Frontal {{ frontal }}</td>
+				<td colspan="1" class="bold">Microfone {{ microfone }}</td>
+				<td colspan="1" class="bold">sinal de wifi {{ sinalWifi }}</td>
+				<td colspan="1" class="bold">sis alguma coisa {{ alguma }}</td>
+			</tr>
+			<tr>
+				<td colspan="1" class="bold">Conector {{ conector }}</td>
+				<td colspan="1" class="bold">vibracall {{ vibracall }}</td>
+				<td colspan="1" class="bold">sinal de chip {{ sinalChip }}</td>
+				<td colspan="1" class="bold">sis alguma coisa {{ alguma }}</td>
+			</tr>
+		</tbody>
+
+		<tfoot>
+			<tr>
+				<td colspan="4" class="bold font18 red center">
+					EMPRESA FEST CELL SÓ IRA SE RESPONSABILIZAR PELOS ITENS MARCADOS [...]
+					SERVIÇO PRESTADO E/OU PEÇAS TROCADAS PELA LOJA
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</template>
+
+<script>
+    const formatoPadrao = {
+        type: String,
+        require: true,
+        default: '',
+    }
+    export default {
+        props:{
+            nome: formatoPadrao,				
+            endereco: formatoPadrao,
+            telefone : formatoPadrao,
+            falarCom: formatoPadrao,
+            rg:  formatoPadrao,
+            modelo: formatoPadrao,
+            marca: formatoPadrao,
+            cor: formatoPadrao,
+            imei: formatoPadrao,
+            chip: formatoPadrao,
+            cartaoSd: formatoPadrao,
+            capa: formatoPadrao,
+			defeito: formatoPadrao,
+			numero: formatoPadrao,
+			celular: formatoPadrao,
+			solucao: formatoPadrao,
+			toch: formatoPadrao,
+			falanteAuricular: formatoPadrao,
+			entradaCuricular: formatoPadrao,
+			alguma: formatoPadrao,
+			display: formatoPadrao,
+			falanteSom: formatoPadrao,
+			camera: formatoPadrao,
+			sinalWifi: formatoPadrao,
+			vibracall: formatoPadrao,
+			sinalChip: formatoPadrao,
+			microfone: formatoPadrao,
+			valorTotal: formatoPadrao,
+			frontal: formatoPadrao,
+			conector: formatoPadrao,
+        },
+    }
+</script>
+
+<style scoped>
+.bold{
+    font-weight: bold;				
+}
+.center{
+    text-align: center;				
+}
+.red{
+    color: red;				
+}
+.font20{
+    font-size: 20px;
+
+}
+.font25{
+    font-size: 25px;				
+}
+.font18{
+    font-size: 18px;					
+}
+.bg-cinza{
+    background-color: #999;
+}
+table, tr, td, th, tfoot {
+	background-color: #fff;
+    border-collapse: collapse;
+    border: 1px solid #000;
+    text-align: center;
+    padding: 3px;
+}
+table{
+    margin: 20px auto;
+}
+@media print{
+    .bg-cinza{
+        background-color: #999 !important;
+    }				
+}
+</style>

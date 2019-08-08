@@ -1,29 +1,14 @@
-# o.s
+# O.S Generaitor
 
-## Project setup
+um programa que surgil de uma necessidade real de cadastrar O.S, ter um historico alem de poder imprimir,
+contudo tinha que funcionar offline e sem instalar muitos programas na maquina do meu pai kkkk, então resumindo esse é meu primeiro projeto usando electron e conjunto com o Vue.js
+
+## para instalar as dependencias do projeto 
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+### para gerar os executaveis
 ```
-yarn run serve
+yarn electron:build
 ```
-
-### Compiles and minifies for production
-```
-yarn run build
-```
-
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
