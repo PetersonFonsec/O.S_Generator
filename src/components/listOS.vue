@@ -29,7 +29,7 @@
             
               <router-link :to="`/imprimir/${item._id}`" tag="span">
                 <v-btn color="info">
-                  <v-icon>edit</v-icon>
+                  <v-icon>print</v-icon>
                 </v-btn>
               </router-link>
             

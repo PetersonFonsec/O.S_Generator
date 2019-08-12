@@ -1,5 +1,5 @@
 <template>
-    <div style="padding: 20px;">
+    <div style=" background-color: #fff; padding: 20px;">
         <tabela 
             :nome="nome"
             :endereco="endereco"
@@ -35,7 +35,7 @@
 </template>
 
 <script>
-    import tabela from '@/components/tabela.vue'
+   import tabela from '@/components/tabela.vue'
     import OS from '@/models/OS'
     export default {
         components: { tabela },
@@ -78,8 +78,8 @@
                 ...response.acessorios,
                 ...response.cliente,
                 ...response.aparelho,
-            }
-            
+                ...response.danos,
+            }            
 
             if( result.length > 0 ){                
                 this.nome = result.nome

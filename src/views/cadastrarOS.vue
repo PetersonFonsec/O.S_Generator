@@ -1,6 +1,6 @@
 <template>
     <div style="background-color: #fff;">
-        <Form/>
+       <Form/>
     </div>
 </template>
 
@@ -8,7 +8,7 @@
     import Form from '@/components/forCadastroOS.vue'
     
     export default {
-        components:{Form}
+        components:{ Form }
     }
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   
-  <div class="padding-30">
+  <div class="padding-30" id="formulario-cadastro-os">
     <v-alert transition="slide-y-transition" v-model="alertSucesso" type="success" class="mb-4">    
         O.S cadastrada com sucesso    
     </v-alert>
@@ -35,7 +35,13 @@
                     label="Telefone"
                     required />    
             </v-flex>
-
+            
+            <v-flex xs12 sm6 md4 lg3 pa-2>   
+                <v-text-field v-model="cliente.celular"
+                    label="Celular"
+                    required />    
+            </v-flex>
+            
             <v-flex xs12 sm4 md4 lg3 pa-2>   
                 <v-text-field v-model="cliente.falarCom"
                     label="Falar Com"
@@ -97,7 +103,31 @@
                     label="Capa"
                     required />    
             </v-flex>
-            
+
+            <v-flex xs12 pa-1>
+                <h3>Danos</h3>       
+            </v-flex>
+
+            <v-flex xs12 pa-1>
+                <v-radio-group row wraper>
+                    <v-switch v-model="danos.toch" label="Toch" class="mx-4"/>
+                    <v-switch v-model="danos.falanteAuricular" label="Falante Auricular" class="mx-4"/>
+                    <v-switch v-model="danos.entradaCuricular" label="Entrada Curicular" class="mx-4"/>
+                    <v-switch v-model="danos.alguma" label="Alguma" class="mx-4"/>
+                    <v-switch v-model="danos.display" label="Display" class="mx-4"/>
+                    <v-switch v-model="danos.falanteSom" label="Falante Som" class="mx-4"/>
+                    <v-switch v-model="danos.camera" label="Camera" class="mx-4"/>
+                    <v-switch v-model="danos.sinalWifi" label="Sinal Wifi" class="mx-4"/>
+                    <v-switch v-model="danos.conector" label="Conector" class="mx-4"/>
+                    <v-switch v-model="danos.Vibracall" label="Vibra Call" class="mx-4"/>
+                    <v-switch v-model="danos.sinalChip" label="Sinal Chip" class="mx-4"/>
+                    <v-switch v-model="danos.microfone" label="Microfone" class="mx-4"/>
+                    <v-switch v-model="danos.valorTotal" label="Valor Total" class="mx-4"/>
+                    <v-switch v-model="danos.frontal" label="Frontal" class="mx-4"/>
+                    <v-switch v-model="danos.conector" label="Conector" class="mx-4"/>
+                </v-radio-group>
+            </v-flex>
+
             <v-flex xs12 lg12 pa-2>
                 <v-layout align-content-center justify-center>
                     <v-btn color="success"
@@ -113,6 +143,7 @@
                     </v-btn>
                 </v-layout>
             </v-flex>
+             
         </v-layout>         
     </v-form>
 
@@ -134,6 +165,7 @@ export default {
             telefone : '' ,
             falarCom: '' ,
             RG: '' ,
+            celular: '',
         },
         aparelho:{		
             modelo: "",
@@ -145,6 +177,23 @@ export default {
             chip: "",
             cartaoSd: "",
             capa: "",
+        },
+        danos:{
+            toch: false,
+            falanteAuricular: false,
+            entradaCuricular: false,
+            alguma: false,
+            display: false,
+            falanteSom: false,
+            camera: false,
+            sinalWifi: false,
+            conector: false,
+            vibracall: false,
+            sinalChip: false,
+            microfone: false,
+            valorTotal: false,
+            frontal: false,
+            conectorv: false,
         }
     }),
     methods:{
@@ -170,14 +219,38 @@ export default {
                 capa: "",
             }
 
+            this.danos = {
+                toch: false,
+                falanteAuricular: false,
+                entradaCuricular: false,
+                alguma: false,
+                display: false,
+                falanteSom: false,
+                camera: false,
+                sinalWifi: false,
+                conector: false,
+                vibracall: false,
+                sinalChip: false,
+                microfone: false,
+                valorTotal: false,
+                frontal: false,
+                conectorv: false,
+            }
+
         },
         async cadastrar(){
             const cliente = this.cliente
             const aparelho = this.aparelho
             const acessorios = this.acessorios
-            
+            const danos = this.danos
+            const ordemSistema = {
+                ...cliente,
+                ...aparelho,
+                ...acessorios,
+                ...danos
+            }
             // eslint-disable-next-line
-            await OS.cadastrar({ cliente, aparelho, acessorios }).catch( _ => this.alertErro = true )
+            await OS.cadastrar(ordemSistema).catch( _ => this.alertErro = true )
 
             if(!this.alertErro && !this.alertSucesso){
                 this.alertSucesso = true
@@ -190,6 +263,9 @@ export default {
 </script>
 
 <style>
+    #formulario-cadastro-os{
+        background-color: #fff;
+    }
     .padding-30{
         padding: 30px;
     }

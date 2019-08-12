@@ -1,13 +1,15 @@
 <template>
-    <Table :headers="headers" :desserts="desserts" title="Lista O.S">    
-        <template v-slot>
-            <router-link to="/cadastrarOS" tag="span">
-                <v-btn  color="info" style="margin-left: 50px;">
-                    Nova O.S
-                </v-btn>
-            </router-link>
-        </template>
-    </Table>
+    <div>
+        <Table :headers="headers" :desserts="desserts" title="Lista O.S">    
+            <template v-slot>
+                <router-link to="/cadastrarOS" tag="span">
+                    <v-btn  color="info" style="margin-left: 50px;">
+                        Nova O.S
+                    </v-btn>
+                </router-link>
+            </template>
+        </Table>
+    </div>
 </template>
 
 <script>

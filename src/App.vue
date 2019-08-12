@@ -2,15 +2,20 @@
   <v-app>
     <v-content>
 
-      <bg>
-        <div id="limitador">
-          <transition mode="out-in"      
-              enter-active-class="animated slideInUp"  
-              leave-active-clasnos="animated slideOutBottom">
-            <router-view/>
-          </transition>
-        </div>
-      </bg>
+      <particleJS />
+
+      <Menu/>
+        
+      <div id="limitador">
+        
+        <transition mode="out-in"      
+            enter-active-class="animated slideInUp"  
+            leave-active-clasnos="animated slideOutBottom">
+          <router-view/>
+
+        </transition>
+
+      </div>
 
     </v-content>
   </v-app>
@@ -18,10 +23,12 @@
 
 <script>
   import  '@/plugins/animate.css'
-  import bg from  '@/components/background.vue'
+  import particleJS from '@/components/Particle-JS.vue'
+  import Menu from '@/components/menu.vue'
+
   export default {
     name: 'App',
-    components: { bg },
+    components: {  Menu, particleJS },
     data: () => ({
       //
     }),
@@ -31,7 +38,8 @@
 <style>
 #limitador{
   width: 80%;
-  margin: 0 auto; 
+  margin: 100px auto; 
   padding-top: 30px;
+  position: inherit;
 }
 </style>
