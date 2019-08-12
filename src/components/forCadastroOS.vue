@@ -8,9 +8,12 @@
     <v-alert transition="slide-y-transition" v-model="alertErro" type="error" class="mb-4">    
        Erro ao cadastrada O.S
     </v-alert>
-
-    <v-form @submit.prevent="cadastrar"
-        v-model="valid">
+      
+    <v-form  
+        ref="form"
+        v-model="valid"
+        :lazy-validation="true"
+        @submit.prevent="cadastrar" >
 
         <v-layout wrap>
 
@@ -21,30 +24,38 @@
             <v-flex xs12 sm6 md4 lg3 pa-2>
                 <v-text-field v-model="cliente.nome"
                     label="Name"
+                    :rules="campoObrigatorio"
                     required/>
             </v-flex>
             
             <v-flex xs12 sm6 md4 lg3 pa-2>
-                <v-text-field v-model="cliente.rg"
+                <v-text-field 
+                    :rules="campoObrigatorio"
+                    v-model="cliente.rg"
+                    v-mask="'##.###.###-##'"
                     label="RG"
                     required />    
             </v-flex>          
 
             <v-flex xs12 sm6 md4 lg3 pa-2>   
                 <v-text-field v-model="cliente.telefone"
+                    v-mask="'(##) ####-####'"
                     label="Telefone"
                     required />    
             </v-flex>
             
             <v-flex xs12 sm6 md4 lg3 pa-2>   
                 <v-text-field v-model="cliente.celular"
+                    v-mask="'(##) #####-####'"
                     label="Celular"
+                    :rules:="campoObrigatorio"
                     required />    
             </v-flex>
             
             <v-flex xs12 sm4 md4 lg3 pa-2>   
                 <v-text-field v-model="cliente.falarCom"
                     label="Falar Com"
+                    :rules:="campoObrigatorio"
                     required />    
             </v-flex>            
                 
@@ -61,12 +72,14 @@
             <v-flex xs12 sm8 md4 lg3 pa-2>
                 <v-text-field v-model="aparelho.modelo"
                     label="Modelo"
+                    :rules="campoObrigatorio"
                     required/>
             </v-flex>
 
             <v-flex xs12 sm8 md4 lg3 pa-2>
                 <v-text-field v-model="aparelho.marca"
                     label="Marca"
+                    :rules="campoObrigatorio"
                     required /> 
             </v-flex>
             
@@ -77,8 +90,11 @@
             </v-flex>
 
             <v-flex xs12 sm8 md4 lg3 pa-2>
-                <v-text-field v-model="aparelho.imei"
+                <v-text-field 
+                    v-model="aparelho.imei"
+                    v-mask="'######-##-######-#'"
                     label="IMEI"
+                    :rules="campoObrigatorio"
                     required />   
             </v-flex>
 
@@ -89,6 +105,7 @@
             <v-flex xs12 sm6 md4 lg2 pa-2>
                 <v-text-field v-model="acessorios.chip"
                     label="Chip"
+                    :rules="campoObrigatorio"
                     required/>   
             </v-flex>
 
@@ -108,24 +125,52 @@
                 <h3>Danos</h3>       
             </v-flex>
 
-            <v-flex xs12 pa-1>
+            <v-flex xs12 md4 lg3>
                 <v-radio-group row wraper>
-                    <v-switch v-model="danos.toch" label="Toch" class="mx-4"/>
-                    <v-switch v-model="danos.falanteAuricular" label="Falante Auricular" class="mx-4"/>
-                    <v-switch v-model="danos.entradaCuricular" label="Entrada Curicular" class="mx-4"/>
-                    <v-switch v-model="danos.alguma" label="Alguma" class="mx-4"/>
-                    <v-switch v-model="danos.display" label="Display" class="mx-4"/>
-                    <v-switch v-model="danos.falanteSom" label="Falante Som" class="mx-4"/>
-                    <v-switch v-model="danos.camera" label="Camera" class="mx-4"/>
-                    <v-switch v-model="danos.sinalWifi" label="Sinal Wifi" class="mx-4"/>
-                    <v-switch v-model="danos.conector" label="Conector" class="mx-4"/>
-                    <v-switch v-model="danos.Vibracall" label="Vibra Call" class="mx-4"/>
-                    <v-switch v-model="danos.sinalChip" label="Sinal Chip" class="mx-4"/>
-                    <v-switch v-model="danos.microfone" label="Microfone" class="mx-4"/>
-                    <v-switch v-model="danos.valorTotal" label="Valor Total" class="mx-4"/>
-                    <v-switch v-model="danos.frontal" label="Frontal" class="mx-4"/>
-                    <v-switch v-model="danos.conector" label="Conector" class="mx-4"/>
+                    <v-switch v-model="danos.falanteAuricular" label="Falante Auricular" class="mx-2"/>
+                    <v-switch v-model="danos.entradaCuricular" label="Entrada Curicular" class="mx-2"/>
+                    <v-switch v-model="danos.falanteSom"       label="Falante Som"       class="mx-2"/>
                 </v-radio-group>
+            </v-flex>
+
+            <v-flex xs12 md3 lg2>
+                <v-radio-group row wraper>                    
+                    <v-switch v-model="danos.sinalWifi"  label="Sinal Wifi"  class="mx-5"/>                
+                    <v-switch v-model="danos.alguma"     label="Alguma"      class="mx-5"/>
+                    <v-switch v-model="danos.display"    label="Display"     class="mx-5"/>
+                </v-radio-group>
+            </v-flex>
+
+            <v-flex xs12 md3 lg2>
+                <v-radio-group row wraper>
+                    <v-switch v-model="danos.microfone"  label="Microfone"  class="mx-5"/>
+                    <v-switch v-model="danos.Vibracall"  label="Vibra Call" class="mx-5"/>
+                    <v-switch v-model="danos.sinalChip"  label="Sinal Chip" class="mx-5"/>
+                </v-radio-group>
+            </v-flex>
+
+            <v-flex xs12 md3 lg2>
+                <v-radio-group row wraper>
+                    <v-switch v-model="danos.frontal"    label="Frontal"   class="mx-5"/>
+                    <v-switch v-model="danos.conector"   label="Conector"  class="mx-5"/>
+                    <v-switch v-model="danos.toch"       label="Toch"      class="mx-5"/>   
+                </v-radio-group>
+            </v-flex>
+
+
+            <v-flex xs12 md3 lg2>
+                <v-radio-group row wraper>          
+                    <v-switch v-model="danos.conector"   label="Conector"  class="mx-5"/>                    
+                    <v-switch v-model="danos.camera"     label="Camera"    class="mx-5"/>
+                </v-radio-group>
+            </v-flex>
+            
+            <v-flex xs6 sm6 md4 >
+                <v-text-field
+                    v-model="danos.valorTotal"
+                    v-money="money"
+                    label="Valor Total"
+                    class="mx-5"/>
             </v-flex>
 
             <v-flex xs12 lg12 pa-2>
@@ -143,34 +188,62 @@
                     </v-btn>
                 </v-layout>
             </v-flex>
-             
+
         </v-layout>         
     </v-form>
+    
+    <v-alert transition="slide-y-transition" v-model="alertSucesso" type="success" class="mb-4">    
+        O.S cadastrada com sucesso    
+    </v-alert>
 
+    <v-alert transition="slide-y-transition" v-model="alertErro" type="error" class="mb-4">    
+       Erro ao cadastrada O.S
+    </v-alert>
   </div>    
 </template>
 
 <script>
 import OS from '../models/OS'
+import { mask } from 'vue-the-mask'
+import { VMoney } from 'v-money'
 
 export default {
-    data: ()=> ({
-        numeroOS: '01',
+    directives: { mask, money: VMoney },
+    props:{
+        acao :{
+            type: String,
+            default: 'incluir'
+        },
+        OSAlterada:{
+            type: String,
+            default: ''
+        },
+    },
+    data: () => ({
+        numeroOS: '',
+        campoObrigatorio: [valor => !!valor || 'Campo obrigatorio'],
         alertSucesso: false,
         alertErro: false,
         valid: false,
+        money:{
+            decimal: ',',
+            thousands: '.',
+            prefix: 'R$ ',
+            precision: 2,
+            masked: false,
+        },
         cliente:{		
             nome: '',				
             endereco: '' ,
             telefone : '' ,
             falarCom: '' ,
-            RG: '' ,
+            rg: '' ,
             celular: '',
         },
         aparelho:{		
             modelo: "",
             marca: "",
-            Cor: "",
+            cor: "",
             imei: "",
         },
         acessorios:{		
@@ -187,77 +260,82 @@ export default {
             falanteSom: false,
             camera: false,
             sinalWifi: false,
-            conector: false,
             vibracall: false,
             sinalChip: false,
             microfone: false,
-            valorTotal: false,
+            valorTotal: 0,
             frontal: false,
-            conectorv: false,
+            conector: false,
         }
     }),
     methods:{
         resetar(){
-            this.cliente = {		
-                nome: '',				
-                endereco: '' ,
-                telefone : '' ,
-                falarCom: '' ,
-                RG: '' ,
-            }
-
-            this.aparelho = {		
-                modelo: "",
-                marca: "",
-                Cor: "",
-                imei: "",
-            }
-
-            this.acessorios = {		
-                chip: "",
-                cartaoSd: "",
-                capa: "",
-            }
-
-            this.danos = {
-                toch: false,
-                falanteAuricular: false,
-                entradaCuricular: false,
-                alguma: false,
-                display: false,
-                falanteSom: false,
-                camera: false,
-                sinalWifi: false,
-                conector: false,
-                vibracall: false,
-                sinalChip: false,
-                microfone: false,
-                valorTotal: false,
-                frontal: false,
-                conectorv: false,
-            }
-
+            this.$refs.form.reset()
         },
+
         async cadastrar(){
-            const cliente = this.cliente
-            const aparelho = this.aparelho
+
+            if(!this.$refs.form.validate()) return false;
+
+            const cliente    = this.cliente
+            const aparelho   = this.aparelho
             const acessorios = this.acessorios
-            const danos = this.danos
+            const danos      = this.danos
+            const numero     = this.numeroOS
+
             const ordemSistema = {
                 ...cliente,
                 ...aparelho,
                 ...acessorios,
-                ...danos
+                ...danos,
+                numero
             }
-            // eslint-disable-next-line
-            await OS.cadastrar(ordemSistema).catch( _ => this.alertErro = true )
 
-            if(!this.alertErro && !this.alertSucesso){
-                this.alertSucesso = true
-                this.resetar()
-            }
+            let result = { }
+            
+            // eslint-disable-next-line
+            result = this.acao === 'incluir'
+                ?  await OS.cadastrar( ordemSistema ).catch( () => this.alertErro = true )
+                :  await OS.alterar( this.idOS, ordemSistema  ).catch( () => this.alertErro = true )
+
+            Object.keys(result).includes("_id")
+                ? this.alertSucesso = true
+                : this.alertErro = true
+
+            return this.resetar()
+        },
+
+        async gerarNumeroOS(){
+            const resultado = await OS.buscarTodos().catch( console.log )
+            const apenasNumero =  OSS => OSS.map( a=> a.numero )
+            const maiorNumeroOS = OSS => OSS.reduce( ( a, b ) => a > b ? a : b )
+            
+            if(resultado){
+
+                const maiorNumero = maiorNumeroOS( apenasNumero(resultado) )
                 
+                this.numeroOS = maiorNumero + 1;
+            
+            }else{
+                this.numeroOS = 1
+            }   
+        },
+        setarData(){
+            for( prop in OSAlterada ){
+                this.cliente[prop]    ? this.cliente[prop]    = dadosOS[prop] : ''
+                this.aparelho[prop]   ? this.aparelho[prop]   = dadosOS[prop] : ''
+                this.acessorios[prop] ? this.acessorios[prop] = dadosOS[prop] : ''
+                this.danos[prop]      ? this.danos[prop]      = dadosOS[prop] : ''
+            }
         }
+    },
+    mounted(){
+        
+        this.acao === 'editar' 
+            ? this.setarData()
+            : this.gerarNumeroOS()
+
+            
     }
 }
 </script>

@@ -56,62 +56,56 @@
 			numero: "",
 			celular: "",
 			solucao: "",
-			toch: "",
-			falanteAuricular: "",
-			entradaCuricular: "",
-			alguma: "",
-			display: "",
-			falanteSom: "",
-			camera: "",
-			sinalWifi: "",
-			conector: "",
-			vibracall: "",
-            sinalChip: "",
-            microfone: "",
-            valorTotal: "",
-			frontal: "",
+			toch: false,
+			falanteAuricular: false,
+			entradaCuricular: false,
+			alguma: false,
+			display: false,
+			falanteSom: false,
+			camera: false,
+			sinalWifi: false,
+			conector: false,
+			vibracall: false,
+            sinalChip: false,
+            microfone: false,
+            valorTotal: 0,
+			frontal: false,
         }),
         async mounted(){
             const { id } = this.$route.params
             const response = await OS.buscar({ _id: id }).catch( err => console.log(err) )
-            const result = {
-                ...response.acessorios,
-                ...response.cliente,
-                ...response.aparelho,
-                ...response.danos,
-            }            
-
-            if( result.length > 0 ){                
-                this.nome = result.nome
-                this.endereco = result.endereco
-                this.telefone  = result.telefone
-                this.falarCom = result.falarCom
-                this.rg = result.rg
-                this.modelo = result.modelo
-                this.marca = result.marca
-                this.cor = result.cor
-                this.imei = result.imei                
-                this.chip = result.chip
-                this.cartaoSd = result.cartaoSd
-                this.capa = result.capa
-                this.defeito = result.defeito
-                this.numero = result.numero
-                this.celular = result.celular
-                this.solucao = result.solucao
-                this.toch = result.toch
-                this.falanteAuricular = result.falanteAuricular
-                this.entradaCuricular = result.entradaCuricular
-                this.alguma = result.alguma
-                this.display = result.display
-                this.falanteSom = result.falanteSom
-                this.camera = result.camera
-                this.sinalWifi = result.sinalWifi
-                this.conector = result.conector
-                this.vibracall = result.vibracall
-                this.sinalChip = result.sinalChip
-                this.valorTotal = result.valorTotal
-                this.frontal = result.frontal
-                this.conector = result.conector
+            
+            if( response ){                
+                this.nome       = response.nome
+                this.endereco   = response.endereco
+                this.telefone   = response.telefone
+                this.falarCom   = response.falarCom
+                this.rg         = response.rg
+                this.modelo     = response.modelo
+                this.marca      = response.marca
+                this.cor        = response.cor
+                this.imei       = response.imei                
+                this.chip       = response.chip
+                this.cartaoSd   = response.cartaoSd
+                this.capa       = response.capa
+                this.defeito    = response.defeito
+                this.numero     = response.numero
+                this.celular    = response.celular
+                this.solucao    = response.solucao
+                this.toch       = response.toch
+                this.alguma     = response.alguma
+                this.display    = response.display
+                this.camera     = response.camera
+                this.sinalWifi  = response.sinalWifi
+                this.falanteSom = response.falanteSom
+                this.conector   = response.conector
+                this.vibracall  = response.vibracall
+                this.sinalChip  = response.sinalChip
+                this.valorTotal = response.valorTotal
+                this.frontal    = response.frontal
+                this.conector   = response.conector
+                this.falanteAuricular = response.falanteAuricular
+                this.entradaCuricular = response.entradaCuricular
             }
         }
     }

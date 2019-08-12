@@ -22,7 +22,7 @@
         data: () => ({
             desserts:[],
             headers: [                
-                { text: 'RG', value: 'rg' },
+                { text: 'Numero', value: 'numero' },
                 {
                     text: 'Nome',
                     align: 'left',
@@ -32,22 +32,16 @@
                 { text: 'Marca', value: 'marca' },
                 { text: 'Modelo', value: 'modelo' },
                 { text: 'Falar Com', value: 'falarCom' },
+                { text: 'Telefone', value: 'telefone' },
                 { text: 'imprimir', value: '' },
+                { text: 'editar', value: '' },
             ]
         }),
-        methods:{
-            fildesHeader( obj ){
-                const { marca, modelo } = obj.aparelho
-                const { rg, nome,  falarCom } = obj.cliente
-                const { _id } = obj
-                return { marca, modelo, rg, nome,  falarCom, _id }
-            }
-        },
         async mounted(){
             const result = await OS.buscarTodos().catch( err => console.log(err) )
 
             Array.isArray(result) && result.length > 0 
-                ? this.desserts = result.map( item => this.fildesHeader(item) )
+                ? this.desserts = result
                 : this.desserts = []             
         }
     }

@@ -20,12 +20,14 @@
       <template v-slot:body="{ items }">
         <tbody>
           <tr v-for="item in items" :key="item.name">
-            <td class="text-xs-left" width="10%">{{ item.rg }}</td>
-            <td class="text-xs-left" width="20%">{{ item.nome }}</td>
-            <td class="text-xs-left" width="20%">{{ item.marca }}</td>
-            <td class="text-xs-left" width="20%">{{ item.modelo }}</td>
-            <td class="text-xs-left" width="20%">{{ item.falarCom }}</td>
-            <td class="text-xs-center" width="25%">
+            <td class="text-xs-left" >{{ item.numero }}</td>
+            <td class="text-xs-left" >{{ item.nome }}</td>
+            <td class="text-xs-left" >{{ item.marca }}</td>
+            <td class="text-xs-left" >{{ item.modelo }}</td>
+            <td class="text-xs-left" >{{ item.falarCom }}</td>
+            <td class="text-xs-left" >{{ item.telefone }}</td>
+
+            <td class="text-xs-center" width="5%">
             
               <router-link :to="`/imprimir/${item._id}`" tag="span">
                 <v-btn color="info">
@@ -34,6 +36,17 @@
               </router-link>
             
             </td>
+
+            <td class="text-xs-center" width="5%">
+            
+              <router-link :to="`/edit/${item._id}`" tag="span">
+                <v-btn color="info">
+                  <v-icon>edit</v-icon>
+                </v-btn>
+              </router-link>
+            
+            </td>
+
           </tr>
         </tbody>
       </template>

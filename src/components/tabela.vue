@@ -100,28 +100,28 @@
 				<td colspan="4" class="bold font20 bg-cinza">Valor Total: {{ valorTotal }}</td>
 			</tr>
 			<tr>
-				<td colspan="1" class="bold">Toch {{ toch }}</td>
-				<td colspan="1" class="bold">Falante auricular {{ falanteAuricular }}</td>
-				<td colspan="1" class="bold">Entrada de chip {{ entradaCuricular }}</td>
-				<td colspan="1" class="bold">sis alguma coisa {{ alguma }}</td>
+				<td colspan="1" class="bold">Toch {{ toch | defeito }}</td>
+				<td colspan="1" class="bold">Falante auricular {{ falanteAuricular | defeito }}</td>
+				<td colspan="1" class="bold">Entrada de chip {{ entradaCuricular | defeito }}</td>
+				<td colspan="1" class="bold">sis alguma coisa {{ alguma | defeito }}</td>
 			</tr>
 			<tr>
-				<td colspan="1" class="bold">Display {{ display }}</td>
-				<td colspan="1" class="bold">Falante de som {{ falanteSom }}</td>
-				<td colspan="1" class="bold">Camera {{ camera }}</td>
-				<td colspan="1" class="bold">sis alguma coisa {{ alguma }}</td>
+				<td colspan="1" class="bold">Display {{ display | defeito }}</td>
+				<td colspan="1" class="bold">Falante de som {{ falanteSom | defeito }}</td>
+				<td colspan="1" class="bold">Camera {{ camera | defeito }}</td>
+				<td colspan="1" class="bold">sis alguma coisa {{ alguma | defeito }}</td>
 			</tr>
 			<tr>
-				<td colspan="1" class="bold">Frontal {{ frontal }}</td>
-				<td colspan="1" class="bold">Microfone {{ microfone }}</td>
-				<td colspan="1" class="bold">sinal de wifi {{ sinalWifi }}</td>
-				<td colspan="1" class="bold">sis alguma coisa {{ alguma }}</td>
+				<td colspan="1" class="bold">Frontal {{ frontal | defeito }}</td>
+				<td colspan="1" class="bold">Microfone {{ microfone | defeito }}</td>
+				<td colspan="1" class="bold">sinal de wifi {{ sinalWifi | defeito }}</td>
+				<td colspan="1" class="bold">sis alguma coisa {{ alguma | defeito }}</td>
 			</tr>
 			<tr>
-				<td colspan="1" class="bold">Conector {{ conector }}</td>
-				<td colspan="1" class="bold">vibracall {{ vibracall }}</td>
-				<td colspan="1" class="bold">sinal de chip {{ sinalChip }}</td>
-				<td colspan="1" class="bold">sis alguma coisa {{ alguma }}</td>
+				<td colspan="1" class="bold">Conector {{ conector | defeito }}</td>
+				<td colspan="1" class="bold">vibracall {{ vibracall | defeito }}</td>
+				<td colspan="1" class="bold">sinal de chip {{ sinalChip | defeito }}</td>
+				<td colspan="1" class="bold">sis alguma coisa {{ alguma | defeito }}</td>
 			</tr>
 		</tbody>
 
@@ -137,44 +137,58 @@
 </template>
 
 <script>
-    const formatoPadrao = {
+    const formatoString = {
         type: String,
         require: true,
         default: '',
-    }
+	}
+
+	const formatoBoolean = {
+		type: Boolean,
+        require: true,
+        default: false,
+	}
+	
     export default {
         props:{
-            nome: formatoPadrao,				
-            endereco: formatoPadrao,
-            telefone : formatoPadrao,
-            falarCom: formatoPadrao,
-            rg:  formatoPadrao,
-            modelo: formatoPadrao,
-            marca: formatoPadrao,
-            cor: formatoPadrao,
-            imei: formatoPadrao,
-            chip: formatoPadrao,
-            cartaoSd: formatoPadrao,
-            capa: formatoPadrao,
-			defeito: formatoPadrao,
-			numero: formatoPadrao,
-			celular: formatoPadrao,
-			solucao: formatoPadrao,
-			toch: formatoPadrao,
-			falanteAuricular: formatoPadrao,
-			entradaCuricular: formatoPadrao,
-			alguma: formatoPadrao,
-			display: formatoPadrao,
-			falanteSom: formatoPadrao,
-			camera: formatoPadrao,
-			sinalWifi: formatoPadrao,
-			vibracall: formatoPadrao,
-			sinalChip: formatoPadrao,
-			microfone: formatoPadrao,
-			valorTotal: formatoPadrao,
-			frontal: formatoPadrao,
-			conector: formatoPadrao,
-        },
+			numero: {
+				type: Number,
+				require: true,
+				default: 0
+			},
+            nome: formatoString,				
+            endereco: formatoString,
+            telefone : formatoString,
+            falarCom: formatoString,
+            rg:  formatoString,
+            modelo: formatoString,
+            marca: formatoString,
+            cor: formatoString,
+            imei: formatoString,
+            chip: formatoString,
+            cartaoSd: formatoString,
+            capa: formatoString,
+			defeito: formatoString,
+			celular: formatoString,
+			solucao: formatoString,
+			toch: formatoBoolean,
+			falanteAuricular: formatoBoolean,
+			entradaCuricular: formatoBoolean,
+			alguma: formatoBoolean,
+			display: formatoBoolean,
+			falanteSom: formatoBoolean,
+			camera: formatoBoolean,
+			sinalWifi: formatoBoolean,
+			vibracall: formatoBoolean,
+			sinalChip: formatoBoolean,
+			microfone: formatoBoolean,
+			frontal: formatoBoolean,
+			conector: formatoBoolean,
+			valorTotal: formatoString
+		},
+		filters:{
+			defeito: valor => valor ? 'X' : '' ,
+		}
     }
 </script>
 
