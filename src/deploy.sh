@@ -11,5 +11,5 @@ cd dist
 git add -A
 git commit -m 'deploy'
 
-# deploying to https://petersonFonsec.github.io/O.S_Generator
-git push -f git@github.com:petersonFonsec/O.S_Generator.git master:gh-pages
+# deploying to https://petersonfonsec.github.io/O.S_Generator/
+git push -f git@github.com:petersonfonsec.github.io/O.S_Generator.git master:gh-pages
