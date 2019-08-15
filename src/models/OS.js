@@ -11,7 +11,7 @@ export default {
     
     buscar: condicao => db.asyncFindOne( condicao ),
     
-    alterar:(condicao, dados) => db.asyncUpdate( condicao, dados, {} ),
+    alterar:(condicao, dados) => db.asyncUpdate( condicao, dados ),
     
     excluir:condicao => db.asyncRemove( condicao ),
 }

@@ -152,9 +152,9 @@
     export default {
         props:{
 			numero: {
-				type: Number,
+				type: String,
 				require: true,
-				default: 0
+				default: '0'
 			},
             nome: formatoString,				
             endereco: formatoString,

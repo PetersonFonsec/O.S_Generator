@@ -48,18 +48,18 @@
                 <v-text-field v-model="cliente.celular"
                     v-mask="'(##) #####-####'"
                     label="Celular"
-                    :rules:="campoObrigatorio"
+                    :rules="campoObrigatorio"
                     required />    
             </v-flex>
             
             <v-flex xs12 sm4 md4 lg3 pa-2>   
                 <v-text-field v-model="cliente.falarCom"
                     label="Falar Com"
-                    :rules:="campoObrigatorio"
+                    :rules="campoObrigatorio"
                     required />    
             </v-flex>            
                 
-            <v-flex xs12 sm8 md8 lg12 pa-2>   
+            <v-flex xs12 sm8 md8 lg9 pa-2>   
                 <v-text-field v-model="cliente.endereco"
                     label="Endereco"
                     required /> 
@@ -209,17 +209,10 @@ import { VMoney } from 'v-money'
 
 export default {
     directives: { mask, money: VMoney },
-    props:{
-        acao :{
-            type: String,
-            default: 'incluir'
-        },
-        OSAlterada:{
-            type: String,
-            default: ''
-        },
-    },
     data: () => ({
+        acao : 'incluir',
+        idOS: '',
+        OSAlterada: '',
         numeroOS: '',
         campoObrigatorio: [valor => !!valor || 'Campo obrigatorio'],
         alertSucesso: false,
@@ -268,9 +261,12 @@ export default {
             conector: false,
         }
     }),
+
     methods:{
         resetar(){
             this.$refs.form.reset()
+            this.acao = 'incluir'
+            this.idOS = ''
         },
 
         async cadastrar(){
@@ -281,7 +277,7 @@ export default {
             const aparelho   = this.aparelho
             const acessorios = this.acessorios
             const danos      = this.danos
-            const numero     = this.numeroOS
+            const numero     = this.numeroOS.toString()
 
             const ordemSistema = {
                 ...cliente,
@@ -292,13 +288,15 @@ export default {
             }
 
             let result = { }
-            
+
             // eslint-disable-next-line
             result = this.acao === 'incluir'
                 ?  await OS.cadastrar( ordemSistema ).catch( () => this.alertErro = true )
-                :  await OS.alterar( this.idOS, ordemSistema  ).catch( () => this.alertErro = true )
-
-            Object.keys(result).includes("_id")
+                :  await OS.alterar( { _id: this.idOS }, ordemSistema  ).catch( () => this.alertErro = true )
+            
+            const chave_id = Object.keys(result).includes("_id")
+            
+            chave_id || result
                 ? this.alertSucesso = true
                 : this.alertErro = true
 
@@ -306,35 +304,56 @@ export default {
         },
 
         async gerarNumeroOS(){
-            const resultado = await OS.buscarTodos().catch( console.log )
-            const apenasNumero =  OSS => OSS.map( a=> a.numero )
-            const maiorNumeroOS = OSS => OSS.reduce( ( a, b ) => a > b ? a : b )
             
-            if(resultado){
+            const resultado = await OS.buscarTodos().catch( console.log )
+            
+            const apenasNumero =  OSS => OSS.map( a=> a.numero )
+            
+            const maiorNumeroOS = OSS => OSS.reduce( ( a, b ) => a > b ? a : b )
+                        
+            if(resultado.length > 0){
 
                 const maiorNumero = maiorNumeroOS( apenasNumero(resultado) )
                 
-                this.numeroOS = maiorNumero + 1;
+                this.numeroOS = parseInt(maiorNumero) + 1;
             
             }else{
                 this.numeroOS = 1
             }   
         },
-        setarData(){
-            for( prop in OSAlterada ){
-                this.cliente[prop]    ? this.cliente[prop]    = dadosOS[prop] : ''
-                this.aparelho[prop]   ? this.aparelho[prop]   = dadosOS[prop] : ''
-                this.acessorios[prop] ? this.acessorios[prop] = dadosOS[prop] : ''
-                this.danos[prop]      ? this.danos[prop]      = dadosOS[prop] : ''
+
+        setarData(osAlterada){
+            
+            const os = osAlterada
+
+            for( let prop in os ){
+                                
+                this.cliente[prop]    !== undefined ? this.cliente[prop]    = os[prop] : ''
+                this.aparelho[prop]   !== undefined ? this.aparelho[prop]   = os[prop] : ''
+                this.acessorios[prop] !== undefined ? this.acessorios[prop] = os[prop] : ''
+                this.danos[prop]      !== undefined ? this.danos[prop]      = os[prop] : ''
             }
         }
     },
-    mounted(){
-        
-        this.acao === 'editar' 
-            ? this.setarData()
-            : this.gerarNumeroOS()
 
+    async mounted(){  
+        const { id } = this.$route.params      
+        
+        if( id ){
+
+            const osAlterada = await OS.buscar({ _id: id })
+            
+            this.acao = 'editar' 
+            
+            this.idOS = id
+            
+            this.setarData(osAlterada)
+
+        }else{
+
+            this.gerarNumeroOS()
+
+        }
             
     }
 }

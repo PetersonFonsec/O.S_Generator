@@ -68,7 +68,7 @@
 			vibracall: false,
             sinalChip: false,
             microfone: false,
-            valorTotal: 0,
+            valorTotal: '0',
 			frontal: false,
         }),
         async mounted(){

@@ -33,8 +33,9 @@
                 { text: 'Modelo', value: 'modelo' },
                 { text: 'Falar Com', value: 'falarCom' },
                 { text: 'Telefone', value: 'telefone' },
-                { text: 'imprimir', value: '' },
-                { text: 'editar', value: '' },
+                { text: 'Imprimir', value: '' },
+                { text: 'Editar', value: '' },
+                { text: 'Excluir', value: '' },
             ]
         }),
         async mounted(){

@@ -1,5 +1,14 @@
 <template>
   <v-card>
+    
+    <v-alert transition="slide-y-transition" v-model="success" type="success" class="mb-4">    
+        O.S excluida com sucesso    
+    </v-alert>
+
+    <v-alert transition="slide-y-transition" v-model="fail" type="error" class="mb-4">    
+       Erro ao excluir O.S
+    </v-alert>
+
     <v-card-title>
       {{ title }}
 
@@ -39,12 +48,18 @@
 
             <td class="text-xs-center" width="5%">
             
-              <router-link :to="`/edit/${item._id}`" tag="span">
+              <router-link :to="`/cadastrarOS/${item._id}`" tag="span">
                 <v-btn color="info">
                   <v-icon>edit</v-icon>
                 </v-btn>
               </router-link>
             
+            </td>
+
+            <td class="text-xs-center" width="5%">
+                <v-btn color="error" @click="excluirOS(item._id)">
+                  <v-icon>delete</v-icon>
+                </v-btn>            
             </td>
 
           </tr>
@@ -69,6 +84,8 @@
 </template>
 
 <script>
+  import OS from '../models/OS'
+import { setTimeout } from 'timers';
   export default {
     name:"ListaOs",
     props:{
@@ -90,7 +107,34 @@
       singleSelect: false,
       items: {},
       selected: [],
+      fail: false,
+      success: false,
     }),
+    methods:{
+      droparItemTabela(_id){
+
+        this.desserts = this.desserts.filter( item => item._id !== _id )
+
+      },
+      toggleAlert(result){
+
+        result ? this.success = true : this.fail = true
+
+        setTimeout( ()=>{
+          result ? this.success = false : this.fail = false
+        },3000)
+
+      },
+      async excluirOS(_id){
+        // const result = await OS.excluir({ _id })
+        const result = 1
+        
+        this.toggleAlert(result)
+
+        this.droparItemTabela( _id )
+
+      }
+    }
   }
 </script>
 <style>

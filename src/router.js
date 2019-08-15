@@ -18,7 +18,12 @@ export default new Router({
     {
       path: '/cadastrarOS',
       name: 'cadastrarOS',
-      component: cadastrarOS
+      component: cadastrarOS,
+    },
+    {
+      path: '/cadastrarOS/:id',
+      name: 'cadastrarOS',
+      component: cadastrarOS,
     },
     {
       path: '/imprimir/:id',
