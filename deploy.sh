@@ -12,4 +12,4 @@ git add -A
 git commit -m 'deploy'
 
 # deploying to https://petersonfonsec.github.io/O.S_Generator/
-git push -f git@github.com:petersonfonsec.github.io/O.S_Generator.git master:gh-pages
+git push -f git@github.com:PetersonFonsec/O.S_Generator.git master:gh-pages
