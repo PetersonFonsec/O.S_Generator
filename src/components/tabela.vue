@@ -193,6 +193,10 @@
 </script>
 
 <style scoped>
+.v-application .red{
+	background: #fff !important;
+	border: none;
+}
 .bold{
     font-weight: bold;				
 }
@@ -224,10 +228,5 @@ table, tr, td, th, tfoot {
 }
 table{
     margin: 20px auto;
-}
-@media print{
-    .bg-cinza{
-        background-color: #999 !important;
-    }				
 }
 </style>

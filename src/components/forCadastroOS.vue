@@ -165,13 +165,24 @@
                 </v-radio-group>
             </v-flex>
             
-            <v-flex xs6 sm6 md4 >
-                <v-text-field
-                    v-model="danos.valorTotal"
-                    v-money="money"
-                    label="Valor Total"
-                    class="mx-5"/>
-            </v-flex>
+            <template v-if="acao === 'incluir'">
+                <v-flex xs6 sm6 md4 >
+                    <v-text-field
+                        v-model="danos.valorTotal"
+                        v-money="money"
+                        label="Valor Total"
+                        class="mx-5"/>
+                </v-flex>
+            </template>
+
+            <template v-else>
+                <v-flex xs6 sm6 md4 >
+                    <v-text-field
+                        v-model="danos.valorTotal"
+                        label="Valor Total"
+                        class="mx-5"/>
+                </v-flex>
+            </template>
 
             <v-flex xs12 lg12 pa-2>
                 <v-layout align-content-center justify-center>
@@ -208,7 +219,9 @@ import { mask } from 'vue-the-mask'
 import { VMoney } from 'v-money'
 
 export default {
+
     directives: { mask, money: VMoney },
+
     data: () => ({
         acao : 'incluir',
         idOS: '',
@@ -343,9 +356,23 @@ export default {
 
             const osAlterada = await OS.buscar({ _id: id })
             
+            const { numero, valorTotal } = osAlterada
+
             this.acao = 'editar' 
             
             this.idOS = id
+            
+            this.numeroOS = numero
+
+            // const dropReal = valor => valor.replace('R$ ', '')
+
+            // const dropPontos =  valor => valor.replace(/\./g,'').replace(/,/g,'.')
+
+            // const compose = ( f,h ) => x => f( h(x) )
+
+            // const vTotal = compose( dropReal, dropPontos )( valorTotal )
+                                   
+            this.danos.valorTotal = valorTotal
             
             this.setarData(osAlterada)
 
@@ -357,6 +384,7 @@ export default {
             
     }
 }
+
 </script>
 
 <style>

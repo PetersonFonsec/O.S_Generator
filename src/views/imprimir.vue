@@ -1,5 +1,8 @@
 <template>
-    <div style=" background-color: #fff; padding: 20px;">
+    <div class="container-view-print">
+        <v-btn color="success" @click="imprimir">
+            <v-icon>print</v-icon>
+        </v-btn>
         <tabela 
             :nome="nome"
             :endereco="endereco"
@@ -107,9 +110,28 @@
                 this.falanteAuricular = response.falanteAuricular
                 this.entradaCuricular = response.entradaCuricular
             }
+        },
+        methods:{
+            imprimir(){
+                window.print()
+            }
         }
     }
 </script>
 
 <style>
+.container-view-print{
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+@media print {
+    *{
+        display: none;
+    }
+    table {
+        display: table
+    }
+}
 </style>
